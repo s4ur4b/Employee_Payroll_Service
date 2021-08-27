@@ -3,19 +3,17 @@ package AddressModel;
 public class Address {
     private String firstName ;
     private String lastName ;
-    private double phoneNo ;
+    private String phoneNo ;
     private String email ;
     private String state ;
     private String city ;
-    private double zip ;
+    private String zip ;
 
 
     public Address() {
     }
 
-
-
-    public Address(String firstName, String lastName, double phoneNo, String email, String state, String city, double zip) {
+    public Address(String firstName, String lastName, String phoneNo, String email, String state, String city, String zip) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNo = phoneNo;
@@ -41,11 +39,11 @@ public class Address {
         this.lastName = lastName;
     }
 
-    public double getPhoneNo() {
+    public String getPhoneNo() {
         return phoneNo;
     }
 
-    public void setPhoneNo(double phoneNo) {
+    public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
 
@@ -73,11 +71,11 @@ public class Address {
         this.city = city;
     }
 
-    public double getZip() {
+    public String getZip() {
         return zip;
     }
 
-    public void setZip(double zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 

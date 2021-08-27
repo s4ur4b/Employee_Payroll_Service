@@ -1,6 +1,5 @@
 package AddressService;
 
-import AddressController.AddressController;
 import AddressModel.Address;
 import Utility.Utility;
 import java.util.ArrayList;
@@ -8,19 +7,20 @@ import java.util.Scanner;
 
 public class AddressService {
 
+    static ArrayList<Address> addressList = new ArrayList<>();
 
-    public ArrayList<Address> addToBook(ArrayList<Address> list) {
+    public void addToBook() {
 
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Enter first name: ");
-        String firstName = scan.next();
+        String firstName = Utility.readString();
 
         System.out.println("Enter last name: ");
         String lastName = scan.next();
 
         System.out.println("Enter Phone Number: ");
-        double phoneNumber = scan.nextDouble();
+        String phoneNumber = scan.next();
 
         System.out.println("Enter email:");
         String email = scan.next();
@@ -32,7 +32,7 @@ public class AddressService {
         String city = scan.next();
 
         System.out.println("Enter zip");
-        double zip = scan.nextDouble();
+        String zip = scan.next();
 
         Address obj = new Address();
         obj.setFirstName(firstName);
@@ -42,75 +42,123 @@ public class AddressService {
         obj.setCity(city);
         obj.setZip(zip);
         obj.setEmail(email);
-        list.add(obj);
-
-        return list;
+        addressList.add(obj);
 
     }
 
-    public ArrayList<Address> editAdBook(ArrayList<Address> list1) {
-        AddressController obj = new AddressController();
+    public void editAdBook() {
+
+        AddressService obj = new AddressService();
 
         System.out.print("\nEnter the first name you want to edit the details for : ");
         String fName = Utility.readString();
-        String firstName = fName;
+        System.out.println(fName);
+        for (Address item : addressList) {
+            if (item.getFirstName().equals(fName)) {
 
-        for (Address item : obj.getAllContacts()) {
-            if (obj.getAllContacts().contains(firstName)) {
-                int x = obj.getAllContacts().indexOf(item);
-                System.out.println("Choose your edit option: ");
-                System.out.println("1. Last Name");
-                System.out.println("2. City");
-                System.out.println("3. State");
-                System.out.println("4. Zip");
-                System.out.println("5. Phone Number");
-                System.out.println("6. Email");
-                int editOption = Utility.readInteger();
+                int editOption=0;
 
-                Address contact = new Address();
+                while (editOption != 8) {
 
-                switch (editOption) {
+                System.out.println("Choos your edit option: ");
+                System.out.println("1. First Name");
+                System.out.println("2. Last Name");
+                System.out.println("3. City");
+                System.out.println("4. State");
+                System.out.println("5. Zip");
+                System.out.println("6. Phone Number");
+                System.out.println("7. Email");
+                System.out.println("8. Exit");
+                editOption = Utility.readInteger();
 
-                    case 1:
-                        System.out.println("Enter new Last Name: ");
-                        String eLastName = Utility.readString();
-                        list1.get(x).setLastName(eLastName);
-                        //     contact.setLastName(eLastName);
-                        break;
+                    Address contact = new Address();
 
-                    case 2:
-                        System.out.println("Enter new City: ");
-                        String eCity = Utility.readString();
-                        list1.get(x).setCity(eCity);
-                        break;
-                    case 3:
-                        System.out.println("Enter new State: ");
-                        String eState = Utility.readString();
-                        list1.get(x).setState(eState);
-                        break;
-                    case 4:
-                        System.out.println("Enter new Zip: ");
-                        double eZip = Utility.readDouble();
-                        list1.get(x).setZip(eZip);
-                        break;
-                    case 5:
-                        System.out.println("Enter new Phone Number: ");
-                        double ePhone = Utility.readDouble();
-                        list1.get(x).setPhoneNo(ePhone);
-                        break;
-                    case 6:
-                        System.out.println("Enter new Email: ");
-                        String eEmail = Utility.readString();
-                        list1.get(x).setEmail(eEmail);
-                        break;
+                    switch (editOption) {
+
+                        case 1:
+                            System.out.println("Enter new First Name");
+                            String eFirstName = Utility.readString();
+                            item.setFirstName(eFirstName);
+                            break;
+
+                        case 2:
+                            System.out.println("Enter new Last Name: ");
+                            String eLastName = Utility.readString();
+                            item.setLastName(eLastName);
+                            break;
+
+                        case 3:
+                            System.out.println("Enter new City: ");
+                            String eCity = Utility.readString();
+                            item.setCity(eCity);
+                            break;
+                        case 4:
+                            System.out.println("Enter new State: ");
+                            String eState = Utility.readString();
+                            item.setState(eState);
+                            break;
+                        case 5:
+                            System.out.println("Enter new Zip: ");
+                            String eZip = Utility.readString();
+                            item.setZip(eZip);
+                            break;
+                        case 6:
+                            System.out.println("Enter new Phone Number: ");
+                            String ePhone = Utility.readString();
+                            item.setPhoneNo(ePhone);
+                            break;
+                        case 7:
+                            System.out.println("Enter new Email: ");
+                            String eEmail = Utility.readString();
+                            item.setEmail(eEmail);
+                            break;
+                    }
+
                 }
+            }
+        }
+    }
 
+    public ArrayList<Address> getAllContacts(){
+        return addressList;
+    }
+
+    public void addTempContact() {
+        Address obj = new Address();
+        obj.setFirstName("Saurabh");
+        obj.setLastName("Chavan");
+        obj.setPhoneNo("9421228322");
+        obj.setEmail("gmail");
+        obj.setState("mh");
+        obj.setCity("pu");
+        obj.setZip("456");
+        addressList.add(obj);
+
+        Address obj1 = new Address();
+        obj1.setFirstName("Shubham");
+        obj1.setLastName("Kumar");
+        obj1.setPhoneNo("9421228311");
+        obj1.setEmail("gmail");
+        obj1.setState("mh");
+        obj1.setCity("pu");
+        obj1.setZip("456");
+        addressList.add(obj1);
+    }
+
+    public void delete(String deleteName) {
+        for (Address item : addressList) {
+            if (item.getFirstName().equals(deleteName)){
+                addressList.remove(item);
             }
         }
 
-        return list1;
     }
 
+    public void print() {
+        for (Address items : getAllContacts()){
+            System.out.println(items);
+        }
+    }
 
 }
 

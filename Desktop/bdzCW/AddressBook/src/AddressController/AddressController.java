@@ -1,4 +1,4 @@
-package AddressController;
+  package AddressController;
 
 import Utility.Utility;
 import AddressModel.Address;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class AddressController {
-    static ArrayList<Address> addressList = new ArrayList<>();
+
     static AddressService  service = new AddressService();
 
     public static void main(String[] args) {
@@ -16,40 +16,36 @@ public class AddressController {
 
         while(choice != 5) {
 
-            System.out.println("Press the key acording to your requirements: \nEnter 1 For adding Details into the Address Book" +
+            System.out.println("Press the key according to your requirements: \nEnter 1 For adding Details into the Address Book" +
                     "\nEnter 2 For Deleting Item of the Address Book\nEnter 3 For Editing Details of the Address Book" +
-                    " \nEnter 4 fpr Displaying all contacts \nEnter 5 to exit ");
+                    " \nEnter 4 for Displaying all contacts \nEnter 5 to exit ");
             choice = Utility.readInteger();
-
 
             switch (choice) {
 
-                case 1: addressList = service.addToBook(addressList);
+                case 1:
+                    service.addTempContact();
+                    service.addToBook();
 
                     break;
 
 
                 case 2:
-                    Address contact = new Address();
                     System.out.println("Enter The Name of The Contact you want to delete");
-                    String deleteName = Utility.readStringLine();
-                    deleteName = Utility.readString();
+                    String deleteName = Utility.readString();
 
-                    for (Address item : addressList) {
-                        if (item.getFirstName().equals(deleteName)){
-                           int delIndex= addressList.indexOf(item);
-                            addressList.remove(delIndex);
-                        }
-                    }
+                    service.delete(deleteName);
+                    service.print();
+
                     break;
 
                 case 3:
-                      addressList =  service.editAdBook(addressList);
+                    service.editAdBook();
+                    service.print();
                     break;
                 case 4:
-                    for (Address items : addressList){
-                        System.out.println(items);
-                    }
+                    service.print();
+
                     break;
             }
 
@@ -58,8 +54,5 @@ public class AddressController {
 
     }
 
-    public ArrayList<Address> getAllContacts(){
-        return addressList;
-    }
 }
 
